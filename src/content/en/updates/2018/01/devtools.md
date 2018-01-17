@@ -1,12 +1,12 @@
 project_path: /web/_project.yaml
 book_path: /web/updates/_book.yaml
-description: TODO
+description: Local Overrides, accessibility tools, performance and SEO audits, and more.
 
-{# wf_updated_on: 2018-01-16 #}
-{# wf_published_on: 2018-01-16 #}
+{# wf_updated_on: 2018-01-17 #}
+{# wf_published_on: 2018-01-17 #}
 {# wf_tags: chrome65,devtools,devtools-whatsnew #}
 {# wf_featured_image: /web/updates/images/generic/chrome-devtools.png #}
-{# wf_featured_snippet: TODO #}
+{# wf_featured_snippet: Local Overrides, accessibility tools, performance and SEO audits, and more. #}
 {# wf_blink_components: Platform>DevTools #}
 
 {% include "web/tools/chrome-devtools/_shared/styles.html" %}
@@ -15,30 +15,66 @@ description: TODO
 
 {% include "web/_shared/contributors/kaycebasques.html" %}
 
-Note: The video version of these release notes will be published around
-early-March 2018.
+Note: The video version of these release notes will be published around early-March 2018.
 
 New features coming to DevTools in Chrome 65 include:
 
-* Network overrides
-* Color contrast line
-* New audits
-* Puppeteer 1.0
-* Multiple Performance recordings
-* Code stepping with workers
-* New "Step Into" behavior
+* [**Local Overrides**](#overrides)
+* [New accessibility tools](#a11y)
+* [The **Changes** tab](#changes)
+* [New performance and SEO audits](#audits)
+* [Multiple recordings in the **Performance** panel](#recordings)
+* [Straightforward code stepping with workers and asynchronous code](#stepping)
 
 Note: Check what version of Chrome you're running at `chrome://version`. If you're running
 an earlier version, these features won't exist. If you're running a later version, these features
 may have changed. Chrome auto-updates to a new major version about every 6 weeks.
 
-## Network overrides {: #overrides }
+## Local Overrides {: #overrides }
 
-## Contrast ratio in the Color Picker {: #contrast-ratio }
+Suppose you're editing some CSS or JavaScript in DevTools. You want to see how the page looks or behaves
+when you reload the page, but DevTools erases your changes when you reload. With **Local
+Overrides**, you can now instruct DevTools to override network requests and serve local resources on your
+filesystem instead. **Local Overrides** works with any file type.
+
+Limitations:
+
+* DevTools doesn't save changes made in the **DOM Tree** of the **Elements** panel. Edit HTML in
+  the **Sources** panel instead.
+* If you edit CSS in the **Styles** pane, and the source of that CSS is an HTML file, DevTools
+  won't save the change. Edit the HTML file in the **Sources** panel instead.
+
+## New accessibility tools {: #a11y }
+
+Use the new **Accessibility** pane to inspect the accessibility properties of an element, and
+inspect the contrast ratio of text elements in the **Color Picker** to ensure that they're
+accessible to users with low-vision impairments or color-deficiencies.
+
+### Accessibility pane {: #a11y-pane }
+
+Use the **Accessibility** pane on the **Elements** panel to investigate the accessibility
+properties of the currently-selected element.
+
+<figure>
+  <img src="/web/updates/images/2018/01/a11y-pane.png"
+       alt="The Accessibility pane shows the ARIA attributes and computed
+            properties for the element that's currently selected in the DOM Tree of
+            the Elements panel, as well as its position in the accessibility tree."/>
+  <figcaption>
+    <b>Figure X</b>. The <b>Accessibility</b> pane shows the ARIA attributes
+    and computed properties for the element that's currently selected in the <b>DOM Tree</b> on
+    the <b>Elements</b> panel, as well as its position in the accessibility tree
+  </figcaption>
+</figure>
+
+Note: The **Accessibility** pane launched in Chrome 64.
+
+### Contrast ratio in the Color Picker {: #contrast }
 
 The [Color Picker][CP] now shows you the contrast ratio of text elements. Increasing the
 contrast ratio of text elements makes your site more accessible to users with low-vision
-impairments or color deficiencies. See [Color and contrast][contrast] to learn more.
+impairments or color deficiencies. See [Color and contrast][contrast] to learn more about how
+contrast ratio affects accessibility.
 
 <figure>
   <img src="/web/updates/images/2018/01/contrast-ratio-collapsed.png"
@@ -69,13 +105,13 @@ DevTools][audit] to get started with the **Audits** panel.
 
 ## New audits {: #audits }
 
-Chrome 65 ships with new performance audits:
+Chrome 65 ships with [new performance audits][perfaudits]:
 
 * JavaScript boot-up time is high
 * Uses inefficient cache policy on static assets
 * Avoids page redirects
 
-And a whole new category of SEO audits:
+And a [new category of SEO audits][seoaudits]:
 
 * Document doesn't use legible font sizes
 * Has a `<meta name="viewport">` tag with `width` or `initial-scale`
@@ -88,18 +124,52 @@ And a whole new category of SEO audits:
 
 Other updates include:
 
-* New, manual accessibility audits
-* Updates to the WebP audit to make
-* A rehaul of the accessibility score
+* [New, manual accessibility audits](/web/updates/2018/01/lighthouse#a11y)
+* [Updates to the WebP audit][webp] to make it more inclusive of other next-generation image formats
+* [A rehaul of the accessibility score][a11yscore]
 
 Note: The **Audits** panel is powered by [Lighthouse][LH]. Chrome 64 runs Lighthouse version 2.5.
 Chrome 65 runs Lighthouse version 2.7. So this section is simply a summary of the [Lighthouse
 2.6 Updates][2.6] and [Lighthouse 2.7 Updates][2.7].
 
+[perfaudits]: /web/updates/2017/12/lighthouse#perf
+[seoaudits]: /web/updates/2018/01/lighthouse#seo
+[webp]: /web/updates/2018/01/lighthouse#webp
+[a11yscore]: /web/updates/2017/12/lighthouse#a11y
 [LH]: /web/tools/lighthouse
 [2.6]: /web/updates/2017/12/lighthouse
 [2.7]: /web/updates/2018/01/lighthouse
 
+## Multiple recordings in the Performance panel {: #recordings }
+
+The **Performance** panel now lets you temporarily save up to 5 recordings. The recordings are
+deleted when you close your DevTools window.
+
+## Straightforward code stepping with workers and asynchronous code {: #stepping }
+
+
+
+## Automating Chrome DevTools actions with Puppeteer 1.0 {: #puppeteer }
+
+Version 1.0 of Puppeteer, a browser automation tool maintained by the Chrome DevTools team, has
+just been released.
+
+## A request from the DevTools team: consider Canary {: #canary }
+
+If you're on Mac or Windows, please consider using [Chrome Canary][canary] as your default
+development browser. If you report a bug or a change that you don't like while it's still in
+Canary, the DevTools team can address your feedback significantly faster.
+
+The typical version of Chrome that everyone uses is called Chrome Stable. It's called Stable
+because it goes through rigorous testing. It's very difficult and time-consuming
+for the DevTools team to ship changes to Stable. In practice, this means that the only updates
+that get shipped to Stable are critical bug fixes.
+
+Note: Canary is the bleeding-edge version of Chrome. It's released as soon as its built, without
+testing. This means that Canary breaks from time-to-time, about once-a-month, and it's usually
+fixed within a day. You can go back to using Chrome Stable when Canary breaks.
+
+[canary]: https://www.google.com/chrome/browser/canary.html
 
 ## Feedback {: #feedback }
 
